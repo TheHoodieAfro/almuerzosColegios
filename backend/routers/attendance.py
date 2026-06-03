@@ -1,6 +1,14 @@
+import crud
+from db import get_db
+from fastapi import APIRouter, Depends
+from schemas import AttendanceResponse, CheckInRequest
+from sqlalchemy.orm import Session
+
+router = APIRouter()
+
+
 @router.post("/checkin")
-def check_in(request: CheckInRequest):  # ← FastAPI reads the schema here
-    # by the time you're inside this function, `request` is already
-    # a validated Python object. No manual parsing needed.
-    record = crud.create_record(student_id=request.student_id)
-    return AttendanceResponse.from_orm(record)  # ← schema shapes the output
+def check_in(request: CheckInRequest, db: Session = Depends(get_db)):
+
+    record = crud.create_record(db, request.student_id)
+    return AttendanceResponse.from_orm(record)
