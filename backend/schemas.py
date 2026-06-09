@@ -1,20 +1,27 @@
-from datetime import datetime
+from datetime import date, datetime
 
-from pydantic import BaseModel
-
-
-# What the API receives when a student checks in
-class CheckInRequest(BaseModel):
-    colegio_id: str
+from pydantic import BaseModel, ConfigDict, field_serializer
 
 
-# What the API sends back after a check-in
 class AttendanceResponse(BaseModel):
-    id: str
     colegio_id: str
     nombres: str
     apellidos: str
     registro: datetime
 
-    class Config:
-        from_attributes = True  # allows converting a DB model directly to this schema
+    model_config = ConfigDict(from_attributes=True)
+
+    @field_serializer("registro")
+    def format_registro(self, value: datetime) -> str:
+        return value.strftime("%d/%m/%Y %H:%M")  # → "09/06/2026 03:54"
+
+
+class CheckInRequest(BaseModel):
+    colegio_id: str
+
+
+class ReportResponse(BaseModel):
+    start: date
+    end: date
+    total: int
+    records: list[AttendanceResponse]

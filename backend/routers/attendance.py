@@ -1,7 +1,13 @@
+from datetime import date
+
 import crud
 from db import get_db
 from fastapi import APIRouter, Depends, HTTPException
-from schemas import AttendanceResponse, CheckInRequest
+from schemas import (
+    AttendanceResponse,
+    CheckInRequest,
+    ReportResponse,
+)
 from sqlalchemy.orm import Session
 
 router = APIRouter()
@@ -14,3 +20,16 @@ def check_in(request: CheckInRequest, db: Session = Depends(get_db)):
     if record is None:
         raise HTTPException(status_code=404, detail="Student not found in Excel file")
     return AttendanceResponse.model_validate(record)
+
+
+@router.get("/records")
+def get_records(
+    start: date, end: date, db: Session = Depends(get_db)
+) -> ReportResponse:
+    records = crud.get_records_by_range(db, start, end)
+    return ReportResponse(
+        start=start,
+        end=end,
+        total=len(records),
+        records=[AttendanceResponse.model_validate(r) for r in records],
+    )

@@ -21,7 +21,7 @@ Aplicacion web para el seguimiento diario de los estudiantes al almuerzo escolar
 ### Guia
 
 1. Clone the repository:
-git clone git@github.com:TheHoodieAfro/almuerzosColegios.git
+git clone https://github.com/TheHoodieAfro/almuerzosColegios.git
 
 2. Start the application:
 cd almuerzosColegios

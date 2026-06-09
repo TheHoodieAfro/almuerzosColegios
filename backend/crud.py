@@ -1,13 +1,15 @@
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 import models
 import pandas as pd
-from dateutil.relativedelta import relativedelta
 from sqlalchemy.orm import Session
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 STUDENTS_FILE = BASE_DIR / "data" / "Estudiantes.xlsx"
+
+BOGOTA_TZ = ZoneInfo("America/Bogota")
 
 
 def get_student_from_excel(student_id: str) -> dict | None:
@@ -25,7 +27,7 @@ def get_student_from_excel(student_id: str) -> dict | None:
 
 def create_record(db: Session, colegio_id: str) -> models.AttendanceRecord | None:
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(BOGOTA_TZ)
     record_id = f"{colegio_id}_{now.strftime('%Y%m%d%H%M%S')}"
 
     student = get_student_from_excel(colegio_id)
@@ -42,21 +44,22 @@ def create_record(db: Session, colegio_id: str) -> models.AttendanceRecord | Non
 
     db.add(record)
     db.commit()
+
     return record
 
 
-def get_records_from_last_month(db: Session) -> list[models.AttendanceRecord]:
-    now = datetime.now(timezone.utc)
-    start = (now - relativedelta(months=1)).replace(
-        day=1, hour=0, minute=0, second=0, microsecond=0
-    )
-    end = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+def get_records_by_range(
+    db: Session, start: date, end: date
+) -> list[models.AttendanceRecord]:
+
+    start_dt = datetime(start.year, start.month, start.day, 0, 0, 0)
+    end_dt = datetime(end.year, end.month, end.day, 23, 59, 59)
 
     return (
         db.query(models.AttendanceRecord)
         .filter(
-            models.AttendanceRecord.registro >= start,
-            models.AttendanceRecord.registro < end,
+            models.AttendanceRecord.registro >= start_dt,
+            models.AttendanceRecord.registro <= end_dt,
         )
         .all()
     )
