@@ -1,5 +1,5 @@
 from db import Base
-from sqlalchemy import Column, DateTime, Integer, String
+from sqlalchemy import Column, DateTime, String
 
 
 class AttendanceRecord(Base):
