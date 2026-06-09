@@ -6,6 +6,7 @@ backend/venv/
 
 # Database
 data/*.db
+data/*.xlsx
 !data/.gitkeep
 
 # Frontend (already handled by frontend/.gitignore but safe to repeat)
