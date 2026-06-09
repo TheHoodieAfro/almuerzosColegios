@@ -18,7 +18,7 @@ def create_record(db: Session, colegio_id: str) -> models.AttendanceRecord:
         colegio_id=colegio_id,
         nombres=nombres,
         apellidos=apellidos,
-        tiempo=datetime.now(timezone.utc),
+        registro=datetime.now(timezone.utc),
     )
 
     db.add(record)
@@ -36,8 +36,8 @@ def get_records_from_last_month(db: Session) -> list[models.AttendanceRecord]:
     return (
         db.query(models.AttendanceRecord)
         .filter(
-            models.AttendanceRecord.tiempo >= start,
-            models.AttendanceRecord.tiempo < end,
+            models.AttendanceRecord.registro >= start,
+            models.AttendanceRecord.registro < end,
         )
         .all()
     )

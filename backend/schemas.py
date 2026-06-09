@@ -10,7 +10,7 @@ class CheckInRequest(BaseModel):
 
 # What the API sends back after a check-in
 class AttendanceResponse(BaseModel):
-    id: int
+    id: str
     colegio_id: str
     nombres: str
     apellidos: str
