@@ -9,9 +9,11 @@ Aplicacion web para el seguimiento diario de los estudiantes al almuerzo escolar
 - **Base de datos:** SQLite
 - **Despliegue:** Docker + Docker Compose
 
-## Ambiente esperado
-
 ## Instalacion
+
+### Ambiente esperado
+
+Preferably linux, be it x86 or ARM (raspberry PI)
 
 ### Prerrequisitos
 
