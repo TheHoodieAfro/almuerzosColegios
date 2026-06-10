@@ -2,6 +2,7 @@ from contextlib import asynccontextmanager
 
 from db import Base, engine
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from routers import attendance
 
 
@@ -12,4 +13,12 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Vite's default port
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.include_router(attendance.router)

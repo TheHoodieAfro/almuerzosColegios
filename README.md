@@ -29,6 +29,9 @@ git clone https://github.com/TheHoodieAfro/almuerzosColegios.git
 cd almuerzosColegios
 docker compose up
 
+uvicorn main:app --reload
+npm run dev
+
 ## Variables de ambiente
 
 Create a `.env` file in the project root with the following:
