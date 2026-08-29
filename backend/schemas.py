@@ -4,9 +4,10 @@ from pydantic import BaseModel, ConfigDict, field_serializer
 
 
 class AttendanceResponse(BaseModel):
-    colegio_id: str
+    documento: str
     nombres: str
-    apellidos: str
+    grado: str
+    grupo: str
     registro: datetime
 
     model_config = ConfigDict(from_attributes=True)
@@ -17,7 +18,7 @@ class AttendanceResponse(BaseModel):
 
 
 class CheckInRequest(BaseModel):
-    colegio_id: str
+    documento: str
 
 
 class ReportResponse(BaseModel):

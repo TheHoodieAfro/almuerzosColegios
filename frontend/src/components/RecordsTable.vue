@@ -28,9 +28,10 @@ defineProps({
         <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="bg-gray-100 text-gray-600 text-sm uppercase">
-                    <th class="px-4 py-3">ID</th>
+                    <th class="px-4 py-3">Documento</th>
                     <th class="px-4 py-3">Nombres</th>
-                    <th class="px-4 py-3">Apellidos</th>
+                    <th class="px-4 py-3">Grado</th>
+                    <th class="px-4 py-3">Grupo</th>
                     <th class="px-4 py-3">Fecha</th>
                 </tr>
             </thead>
@@ -42,12 +43,13 @@ defineProps({
                 </tr>
                 <tr
                     v-for="record in records"
-                    :key="record.colegio_id + record.registro"
+                    :key="record.documento + record.registro"
                     class="border-t hover:bg-gray-50"
                 >
-                    <td class="px-4 py-3">{{ record.colegio_id }}</td>
+                    <td class="px-4 py-3">{{ record.documento }}</td>
                     <td class="px-4 py-3">{{ record.nombres }}</td>
-                    <td class="px-4 py-3">{{ record.apellidos }}</td>
+                    <td class="px-4 py-3">{{ record.grado }}</td>
+                    <td class="px-4 py-3">{{ record.grupo }}</td>
                     <td class="px-4 py-3">{{ record.registro }}</td>
                 </tr>
             </tbody>

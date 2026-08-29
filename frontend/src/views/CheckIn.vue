@@ -6,9 +6,9 @@ import CheckInForm from "../components/CheckInForm.vue";
 const message = ref("");
 const isError = ref(false);
 
-async function handleCheckIn(colegioId) {
+async function handleCheckIn(documento) {
     try {
-        await postCheckIn(colegioId);
+        await postCheckIn(documento);
         message.value = "Asistencia registrada exitosamente";
         isError.value = false;
     } catch (error) {

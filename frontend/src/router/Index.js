@@ -8,7 +8,7 @@ const routes = [
     component: CheckIn,
   },
   {
-    path: "/reports",
+    path: "/reportes",
     component: Reports,
   },
 ];

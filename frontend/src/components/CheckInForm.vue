@@ -2,21 +2,21 @@
 import { ref } from "vue";
 
 const emit = defineEmits(["submit"]);
-const colegioId = ref("");
+const documento = ref("");
 
 function handleSubmit() {
-    if (!colegioId.value) return;
-    emit("submit", colegioId.value); // just tells the parent "user submitted this ID"
-    colegioId.value = "";
+    if (!documento.value) return;
+    emit("submit", documento.value); // just tells the parent "user submitted this ID"
+    documento.value = "";
 }
 </script>
 
 <template>
     <div class="flex flex-col items-center gap-4 p-6">
         <input
-            v-model="colegioId"
+            v-model="documento"
             type="text"
-            placeholder="Ingresa tu codigo de estudiante"
+            placeholder="Ingresa tu documento de identidad"
             @keyup.enter="handleSubmit"
             class="border rounded-lg px-4 py-2 w-full max-w-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         />

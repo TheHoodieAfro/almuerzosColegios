@@ -7,6 +7,7 @@ const router = useRouter();
 <template>
     <div class="min-h-screen bg-gray-50">
         <nav class="bg-white shadow-sm px-6 py-4 flex gap-6">
+            <!--
             <button
                 @click="router.push('/')"
                 class="text-gray-600 hover:text-blue-500 font-medium"
@@ -14,11 +15,12 @@ const router = useRouter();
                 Registro
             </button>
             <button
-                @click="router.push('/reports')"
+                @click="router.push('/reportes')"
                 class="text-gray-600 hover:text-blue-500 font-medium"
             >
                 Reportes
             </button>
+            -->
         </nav>
 
         <RouterView />

@@ -7,38 +7,40 @@ import pandas as pd
 from sqlalchemy.orm import Session
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-STUDENTS_FILE = BASE_DIR / "data" / "Estudiantes.xlsx"
+STUDENTS_FILE = BASE_DIR / "data" / "JORNADA UNICA -SEDE BACHILLERATO.xlsx"
 
 BOGOTA_TZ = ZoneInfo("America/Bogota")
 
 
-def get_student_from_excel(student_id: str) -> dict | None:
+def get_student_from_excel(documento: str) -> dict | None:
     df = pd.read_excel(STUDENTS_FILE)
-    student = df[df["colegio_id"] == int(student_id)]
+    student = df[df["Documento"] == str(documento)]
 
     if student.empty:
         return None
 
     return {
-        "name": student.iloc[0]["nombres"],
-        "last_name": student.iloc[0]["apellidos"],
+        "nombres": student.iloc[0]["Apellidos y nombre del estudiante"],
+        "grado": student.iloc[0]["Grado"],
+        "grupo": student.iloc[0]["Grupo"],
     }
 
 
-def create_record(db: Session, colegio_id: str) -> models.AttendanceRecord | None:
+def create_record(db: Session, documento: str) -> models.AttendanceRecord | None:
 
     now = datetime.now(BOGOTA_TZ)
-    record_id = f"{colegio_id}_{now.strftime('%Y%m%d%H%M%S')}"
+    record_id = f"{documento}_{now.strftime('%Y%m%d%H%M%S')}"
 
-    student = get_student_from_excel(colegio_id)
+    student = get_student_from_excel(documento)
     if student is None:
         return None
 
     record = models.AttendanceRecord(
         id=record_id,
-        colegio_id=colegio_id,
-        nombres=student["name"],
-        apellidos=student["last_name"],
+        documento=documento,
+        nombres=student["nombres"],
+        grado=str(student["grado"]),
+        grupo=student["grupo"],
         registro=now,
     )
 

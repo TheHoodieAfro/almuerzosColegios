@@ -1,10 +1,10 @@
 const BASE_URL = "http://localhost:8000";
 
-export async function postCheckIn(colegioId) {
+export async function postCheckIn(documento) {
   const response = await fetch(`${BASE_URL}/checkin`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ colegio_id: colegioId }),
+    body: JSON.stringify({ documento: documento }),
   });
 
   if (!response.ok) {
