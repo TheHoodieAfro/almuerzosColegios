@@ -1,3 +1,5 @@
+import os
+
 from pathlib import Path
 from typing import Generator
 
@@ -5,7 +7,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-DATABASE_URL = f"sqlite:///{BASE_DIR}/data/attendance.db"
+DATA_DIR = Path(os.getenv("DATA_DIR", BASE_DIR / "data"))  # <-- override in Docker
+DATABASE_URL = f"sqlite:///{DATA_DIR}/attendance.db"
 
 engine = create_engine(
     DATABASE_URL,

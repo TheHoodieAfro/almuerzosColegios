@@ -2,12 +2,14 @@ from datetime import date, datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+import os
 import models
 import pandas as pd
 from sqlalchemy.orm import Session
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-STUDENTS_FILE = BASE_DIR / "data" / "JORNADA UNICA -SEDE BACHILLERATO.xlsx"
+DATA_DIR = Path(os.getenv("DATA_DIR", BASE_DIR / "data"))
+STUDENTS_FILE = DATA_DIR / "JORNADA UNICA -SEDE BACHILLERATO.xlsx"
 
 BOGOTA_TZ = ZoneInfo("America/Bogota")
 
