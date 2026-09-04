@@ -7,35 +7,63 @@ Aplicacion web para el seguimiento diario de los estudiantes al almuerzo escolar
 - **Frontend:** Vue 3 + Vite + Tailwind CSS
 - **Backend:** Python + FastAPI
 - **Base de datos:** SQLite
-- **Despliegue:** Docker + Docker Compose
+- **Despliegue:** Docker
 
-## Instalacion
+## Instalación
 
 ### Ambiente esperado
-
-Preferably linux, be it x86 or ARM (raspberry PI)
+Pensado para correr en Linux (x86 o ARM, como Raspberry Pi). También se puede correr en Windows usando Docker Desktop, únicamente para fines de presentación/demo.
 
 ### Prerrequisitos
-
 - Docker
 - Docker Compose
+- (Solo para desarrollo local) Node.js y Python 3.12+
 
-### Guia
+### Guía: correr con Docker (Linux)
+1. Abir powershell y utilizar el comando:
+```bash
+   cd Documentos
+```
+2. Clonar el repositorio:
+```bash
+   git clone https://github.com/TheHoodieAfro/almuerzosColegios.git
+   cd almuerzosColegios
+```
+3. Copiar los archivos excel de los estudiantes a la carpeta "data" encontrada en la carpeta del proyecto (Documentos/almuerzosColegios/data)
+4. Levantar los contenedores:
+```bash
+   docker compose up --build
+```
+5. Abrir `http://localhost` en el navegador.
 
-1. Clone the repository:
-git clone https://github.com/TheHoodieAfro/almuerzosColegios.git
+### Guía: correr con Docker (Windows, solo para presentaciones)
+1. Instalar [Docker Desktop](https://www.docker.com/products/docker-desktop/) y asegurarse de que esté corriendo.
+2. Clonar el repositorio (con Git Bash, PowerShell o la terminal de tu preferencia):
+```powershell
+   git clone https://github.com/TheHoodieAfro/almuerzosColegios.git
+   cd almuerzosColegios
+```
+3. Levantar los contenedores:
+```powershell
+   docker compose up --build
+```
+4. Abrir `http://localhost` en el navegador.
 
-2. Start the application:
-cd almuerzosColegios
-docker compose up
-
+### Guía: correr localmente (para desarrollo y pruebas)
+Backend:
+```bash
+cd backend
 uvicorn main:app --reload
+```
+El backend queda disponible en `http://127.0.0.1:8000`.
+
+Frontend:
+```bash
+cd frontend
+npm install
 npm run dev
-
-## Variables de ambiente
-
-Create a `.env` file in the project root with the following:
-DB_PATH= # path to the SQLite file, e.g. ./data/school.db
+```
+El frontend queda disponible en `http://localhost:5173`.
 
 ## Licencia
 
