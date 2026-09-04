@@ -10,13 +10,18 @@ from sqlalchemy.orm import Session
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = Path(os.getenv("DATA_DIR", BASE_DIR / "data"))
 STUDENTS_FILE = DATA_DIR / "JORNADA UNICA -SEDE BACHILLERATO.xlsx"
+STUDENTS_FILE2 = DATA_DIR / "MODELOS FLEXIBLES-TARDE.xlsx"
 
 BOGOTA_TZ = ZoneInfo("America/Bogota")
 
 
 def get_student_from_excel(documento: str) -> dict | None:
     df = pd.read_excel(STUDENTS_FILE)
+    df2 = pd.read_excel(STUDENTS_FILE2)
     student = df[df["Documento"] == str(documento)]
+
+    if student.empty:
+        student = df2[df2["Documento"] == str(documento)]
 
     if student.empty:
         return None
